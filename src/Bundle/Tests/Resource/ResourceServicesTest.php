@@ -14,7 +14,7 @@ declare(strict_types=1);
 namespace Sylius\Bundle\ResourceBundle\Tests\Resource;
 
 use Doctrine\ORM\EntityManager;
-use Sylius\Bundle\ResourceBundle\Controller\ResourceController;
+use Sylius\Bundle\ResourceBundle\Controller\IndexAction;
 use Sylius\Component\Resource\Factory\FactoryInterface;
 use Sylius\Component\Resource\Repository\RepositoryInterface;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
@@ -35,7 +35,7 @@ final class ResourceServicesTest extends WebTestCase
         $this->assertTrue($productRepository instanceof EntityManager);
 
         $productRepository = $client->getContainer()->get('app.controller.book');
-        $this->assertTrue($productRepository instanceof ResourceController);
+        $this->assertTrue($productRepository instanceof IndexAction);
 
         $productRepository = $client->getContainer()->get('app.factory.book');
         $this->assertTrue($productRepository instanceof FactoryInterface);

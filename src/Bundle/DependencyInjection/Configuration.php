@@ -13,6 +13,13 @@ declare(strict_types=1);
 
 namespace Sylius\Bundle\ResourceBundle\DependencyInjection;
 
+use Sylius\Bundle\ResourceBundle\Controller\Action\ApplyStateMachineTransitionAction;
+use Sylius\Bundle\ResourceBundle\Controller\Action\BulkDeleteAction;
+use Sylius\Bundle\ResourceBundle\Controller\Action\CreateAction;
+use Sylius\Bundle\ResourceBundle\Controller\Action\DeleteAction;
+use Sylius\Bundle\ResourceBundle\Controller\Action\IndexAction;
+use Sylius\Bundle\ResourceBundle\Controller\Action\ShowAction;
+use Sylius\Bundle\ResourceBundle\Controller\Action\UpdateAction;
 use Sylius\Bundle\ResourceBundle\Controller\ResourceController;
 use Sylius\Bundle\ResourceBundle\Form\Type\DefaultResourceType;
 use Sylius\Bundle\ResourceBundle\SyliusResourceBundle;
@@ -75,6 +82,17 @@ final class Configuration implements ConfigurationInterface
                                     ->scalarNode('repository')->cannotBeEmpty()->end()
                                     ->scalarNode('factory')->defaultValue(Factory::class)->end()
                                     ->scalarNode('form')->defaultValue(DefaultResourceType::class)->cannotBeEmpty()->end()
+                                    ->arrayNode('actions')
+                                        ->isRequired()
+                                        ->addDefaultsIfNotSet()
+                                        ->children()
+                                            ->scalarNode('index')->defaultValue(IndexAction::class)->cannotBeEmpty()->end()
+                                            ->scalarNode('show')->defaultValue(ShowAction::class)->cannotBeEmpty()->end()
+                                            ->scalarNode('create')->defaultValue(CreateAction::class)->cannotBeEmpty()->end()
+                                            ->scalarNode('update')->defaultValue(UpdateAction::class)->cannotBeEmpty()->end()
+                                            ->scalarNode('delete')->defaultValue(DeleteAction::class)->cannotBeEmpty()->end()
+                                            ->scalarNode('bulk_delete')->defaultValue(BulkDeleteAction::class)->cannotBeEmpty()->end()
+                                            ->scalarNode('apply_state_machine')->defaultValue(ApplyStateMachineTransitionAction::class)->cannotBeEmpty()->end()
                                 ->end()
                             ->end()
                             ->arrayNode('translation')
@@ -90,6 +108,17 @@ final class Configuration implements ConfigurationInterface
                                             ->scalarNode('repository')->cannotBeEmpty()->end()
                                             ->scalarNode('factory')->defaultValue(Factory::class)->end()
                                             ->scalarNode('form')->defaultValue(DefaultResourceType::class)->cannotBeEmpty()->end()
+                                            ->arrayNode('actions')
+                                                ->isRequired()
+                                                ->addDefaultsIfNotSet()
+                                                ->children()
+                                                    ->scalarNode('index')->defaultValue(IndexAction::class)->cannotBeEmpty()->end()
+                                                    ->scalarNode('show')->defaultValue(ShowAction::class)->cannotBeEmpty()->end()
+                                                    ->scalarNode('create')->defaultValue(CreateAction::class)->cannotBeEmpty()->end()
+                                                    ->scalarNode('update')->defaultValue(UpdateAction::class)->cannotBeEmpty()->end()
+                                                    ->scalarNode('delete')->defaultValue(DeleteAction::class)->cannotBeEmpty()->end()
+                                                    ->scalarNode('bulk_delete')->defaultValue(BulkDeleteAction::class)->cannotBeEmpty()->end()
+                                                    ->scalarNode('apply_state_machine')->defaultValue(ApplyStateMachineTransitionAction::class)->cannotBeEmpty()->end()
                                         ->end()
                                     ->end()
                                 ->end()

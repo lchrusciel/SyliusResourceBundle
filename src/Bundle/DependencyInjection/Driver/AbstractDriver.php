@@ -29,6 +29,7 @@ abstract class AbstractDriver implements DriverInterface
     public function load(ContainerBuilder $container, MetadataInterface $metadata): void
     {
         $this->setClassesParameters($container, $metadata);
+        $this->setActionsParameters($container, $metadata);
 
         if ($metadata->hasClass('controller')) {
             $this->addController($container, $metadata);
@@ -55,6 +56,31 @@ abstract class AbstractDriver implements DriverInterface
         }
         if ($metadata->hasClass('repository')) {
             $container->setParameter(sprintf('%s.repository.%s.class', $metadata->getApplicationName(), $metadata->getName()), $metadata->getClass('repository'));
+        }
+    }
+
+    protected function setActionsParameters(ContainerBuilder $container, MetadataInterface $metadata): void
+    {
+        if ($metadata->hasAction('index')) {
+            $container->setParameter(sprintf('%s.controller_action.%s.class', $metadata->getApplicationName(), $metadata->getName()), $metadata->getAction('index'));
+        }
+        if ($metadata->hasAction('show')) {
+            $container->setParameter(sprintf('%s.controller_action.%s.class', $metadata->getApplicationName(), $metadata->getName()), $metadata->getAction('show'));
+        }
+        if ($metadata->hasAction('create')) {
+            $container->setParameter(sprintf('%s.controller_action.%s.class', $metadata->getApplicationName(), $metadata->getName()), $metadata->getAction('create'));
+        }
+        if ($metadata->hasAction('update')) {
+            $container->setParameter(sprintf('%s.controller_action.%s.class', $metadata->getApplicationName(), $metadata->getName()), $metadata->getAction('update'));
+        }
+        if ($metadata->hasAction('delete')) {
+            $container->setParameter(sprintf('%s.controller_action.%s.class', $metadata->getApplicationName(), $metadata->getName()), $metadata->getAction('delete'));
+        }
+        if ($metadata->hasAction('bulk_delete')) {
+            $container->setParameter(sprintf('%s.controller_action.%s.class', $metadata->getApplicationName(), $metadata->getName()), $metadata->getAction('bulk_delete'));
+        }
+        if ($metadata->hasAction('apply_state_machine')) {
+            $container->setParameter(sprintf('%s.controller_action.%s.class', $metadata->getApplicationName(), $metadata->getName()), $metadata->getAction('apply_state_machine'));
         }
     }
 
